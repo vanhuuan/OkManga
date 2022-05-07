@@ -6,9 +6,7 @@ from .models import User
 def index(request):
     return render(request,"manga/login.html")
 
-
-def login(request):
-   
+def login(request): 
     username=request.POST['username']
     password=request.POST['password']
     try:
@@ -18,6 +16,7 @@ def login(request):
         return HttpResponse("Login successfully")
     except:
        return HttpResponse("account not correct")
+       
 def checkEmail(value):
     try:
         validate_email(value)
