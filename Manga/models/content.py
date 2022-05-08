@@ -1,5 +1,4 @@
 from django.db import models
-
 from Manga.models.chapter import Chapter
 
 

@@ -7,7 +7,7 @@ from Manga.models.user import User
 
 
 def index(request):
-    return render(request, "manga/login.html")
+    return render(request, "manga/templates/login.html")
 
 
 def login(request):
