@@ -1,7 +1,13 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Role,User,Comic,Chapter,Content,History,Genre
+from Manga.models.chapter import Chapter
+from Manga.models.comic import Comic
+from Manga.models.content import Content
+from Manga.models.genre import Genre
+from Manga.models.history import History
+from Manga.models.role import Role
+from Manga.models.user import User
 
 admin.site.register(Role)
 admin.site.register(User)
