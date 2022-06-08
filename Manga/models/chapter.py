@@ -1,16 +1,14 @@
 from django.db import models
 
-from Manga.models.comic import Comic
+from Manga.models.manga import Manga
 
 
 class Chapter(models.Model):
-    id_chap = models.AutoField(primary_key=True)
-    comic = models.ForeignKey(Comic, on_delete=models.CASCADE)
-    name_chap = models.CharField(max_length=100)
-    ordinal_chap = models.IntegerField()
-    date_release = models.DateField()
-    views = models.IntegerField(default=0)
-    like = models.IntegerField(default=0)
+    id = models.PositiveIntegerField(primary_key=True)
+    manga = models.ForeignKey(Manga, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    modified_date = models.CharField(max_length=50)
+    views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return self.name_chap
+        return f"{self.name} - {str(self.manga)}"
