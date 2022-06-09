@@ -7,8 +7,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 # from Manga.models.user import User
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the manga index.")
+def home(request):
+    return render(request, 'home.html', {})
 
 
 # def login(request):

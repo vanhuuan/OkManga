@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.contrib.auth import authenticate
 from django.urls import path,include
 
+from Manga.models import manga
+
 urlpatterns = [
-    path('', include('Manga.urls')),
-    path('manga/', include('authentication.urls')),
+    path('', include(('authentication.urls', 'authentication'), namespace='authenticate')),
+    path('manga/', include(('Manga.urls', 'Manga'), namespace="manga")),
     path('admin/', admin.site.urls),
-    path('usermanga', include('usermanga.urls')),
+    path('usermanga/', include(('usermanga.urls', 'usermanga'), namespace="usermanga")),
 ]

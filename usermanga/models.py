@@ -2,10 +2,19 @@ from django.db import models
 
 # Create your models here.
 from django.db import models
-from django.contrib.auth.models import User # new
+from django.contrib.auth.models import User
+
+from Manga.models.manga import Manga
 
 
-class Post(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)  # new
-    title = models.CharField(max_length=50)
-    body = models.TextField()
+class UserManga(models.Model):
+    userId = models.ForeignKey(User, on_delete=models.CASCADE)
+    manga = models.ForeignKey(Manga, on_delete=models.CASCADE)
+
+    @staticmethod
+    def get_all_user_manga(uid):
+        rs = []
+        listId = UserManga.objects.filter(userId_id=uid)
+        for i in listId:
+            rs.append(Manga.get_manga_by_id(i.manga.id))
+        return rs

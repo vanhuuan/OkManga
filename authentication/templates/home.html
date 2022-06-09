@@ -8,5 +8,6 @@
 	<p>Name: {{user.first_name}} {{ user.last_name}}</p>
 	<p>Username: {{user.username}}</p>
 	<p>Email: {{user.email}}</p>
+    <a href="{% url 'usermanga:home' %}" class="nav-link">Your uploaded manga</a>
 {% endif %}
 {% endblock %}
