@@ -1,7 +1,7 @@
 import json
 from Manga.models.manga import Manga
 from Manga.models.chapter import Chapter
-from Manga.models.genre import Genre
+from Manga.models.category import Category
 from Manga.models.content import Content
 
 json_path = "E:\\School\\Python\\MyManga\\mymanga\\scripts\\manga_data.json"
@@ -17,15 +17,15 @@ for i,manga in enumerate(data):
                     views=manga["views"],
                     chapters_number=manga["chapters_number"])
     new_manga.save()
-    # Adding genres
-    for genre in manga["genres"]:
-        find_genre = Genre.objects.filter(name=genre.strip())
+    # Adding categories
+    for category in manga["genres"]:
+        find_genre = Category.objects.filter(name=category.strip())
         if find_genre.count() == 0:
-            new_genre = Genre(name=genre.strip())
+            new_genre = Category(name=category.strip())
             new_genre.save()
-            new_manga.genres.add(new_genre)
+            new_manga.categories.add(new_genre)
         else:
-            new_manga.genres.add(find_genre[0])
+            new_manga.categories.add(find_genre[0])
     new_chapters = []
     # Adding chapters
     for ii,chapter in enumerate(manga["chapters"]):

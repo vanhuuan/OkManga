@@ -1,3 +1,4 @@
+import email
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
@@ -18,10 +19,11 @@ def login_user(request):
         if user is not None:  # if user exist
             login(request, user)
             messages.success(request, ('You are logged in'))
-            return redirect('home')  # routes to 'home' on successful login
+            request.session["user"] = user.id
+            return redirect('authentication:home')  # routes to 'home' on successful login
         else:
             messages.success(request, ('Error logging in'))
-            return redirect('login')  # re routes to login page upon unsucessful login
+            return redirect('authentication:login')  # re routes to login page upon unsucessful login
     else:
         return render(request, 'login.html', {})
 
@@ -29,7 +31,7 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     messages.success(request, ('Youre now logged out'))
-    return redirect('home')
+    return redirect('authentication:home')
 
 
 def register_user(request):
@@ -41,8 +43,8 @@ def register_user(request):
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             login(request, user)
-            messages.success(request, ('You are now registered'))
-            return redirect('home')
+            messages.success(request, 'You are now registered')
+            return redirect('authentication:home')
     else:
         form = SignUpForm()
 
@@ -56,7 +58,7 @@ def edit_profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, ('You have edited your profile'))
-            return redirect('home')
+            return redirect('authentication:home')
     else:  # passes in user information
         form = EditProfileForm(instance=request.user)
 
@@ -74,7 +76,7 @@ def change_password(request):
             form.save()
             update_session_auth_hash(request, form.user)
             messages.success(request, ('You have edited your password'))
-            return redirect('home')
+            return redirect('authentication:home')
     else:  # passes in user information
         form = PasswordChangeForm(user=request.user)
 
