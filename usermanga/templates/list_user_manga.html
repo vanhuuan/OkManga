@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your uploaded manga</title>
+</head>
+<body>
+<ul>
+{% for manga in mangas %}
+    <li><a href="#"> {{ manga.name }}</a></li>
+{% endfor %}
+</ul>
+<a href="{% url 'usermanga:add' %}">Add new manga</a>
+</body>
+</html>
