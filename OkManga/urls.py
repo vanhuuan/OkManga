@@ -18,7 +18,7 @@ from django.contrib.auth import authenticate
 from django.urls import path,include
 
 urlpatterns = [
-    path('', include('Manga.urls')),
-    path('manga/', include('authentication.urls')),
+    path('', include('authentication.urls')),
+    path('manga/', include('Manga.urls')),
     path('admin/', admin.site.urls),
 ]

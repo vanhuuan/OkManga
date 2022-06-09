@@ -1,0 +1,78 @@
+{% load static %}
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>My Manga</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <div class="wrapper">
+    <!-- HEADER -->
+    <header>
+      <div class="netflixLogo">
+        <a id="logo" class="navbar-brand" href="#"><img src="{% static 'img/logo.png' %}" alt="MyManga logo"></a>
+      </div>      
+      <nav class="main-nav row">      
+        <div class="my-auto p-3">
+          <a href="#">Trang chủ</a>
+          <a href="#">Thể loại</a> 
+          <a href="#">Gần đây</a>
+          <a href="#">Hot</a>
+          <a href="#">Tất cả</a>        
+        </div>          
+      </nav>
+      <nav class="sub-nav row">
+        <div class="my-auto">
+          <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
+          <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a>
+          {% if request.user.is_authenticated %}
+            {{ request.user }}
+            <a href="{% url 'logout' %}"><i class="fas fa-power-off sub-nav-logo"></i> Đăng xuất</a>
+          {% else %}
+            <a href="{% url 'register' %}">Đăng ký</a><a href="{% url 'login' %}">Đăng nhập</a>
+          {% endif %}
+        </div>
+      </nav>      
+    </header>
+    <!-- END OF HEADER -->
+    
+    <!-- MAIN CONTAINER -->
+    <section class="main-container" >
+      <div class="location" id="home">
+          <h1 id="home">Gần đây mới cập nhật</h1>
+          <div class="box">
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p1.PNG?raw=true" alt=""></a>
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p2.PNG?raw=true" alt=""></a>
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p3.PNG?raw=true" alt=""></a>
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p4.PNG?raw=true" alt=""></a>
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p5.PNG?raw=true" alt=""></a>
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p6.PNG?raw=true" alt=""></a>
+    
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p7.PNG?raw=true" alt=""></a>
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p8.PNG?raw=true" alt=""></a>
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p9.PNG?raw=true" alt=""></a>
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p10.PNG?raw=true" alt=""></a>
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p11.PNG?raw=true" alt=""></a>
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p12.PNG?raw=true" alt=""></a> 
+            
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p7.PNG?raw=true" alt=""></a>
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p8.PNG?raw=true" alt=""></a>
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p9.PNG?raw=true" alt=""></a>
+            <a href=""><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/p10.PNG?raw=true" alt=""></a>
+          </div>
+      </div>
+    <!-- END OF MAIN CONTAINER -->
+
+    <!-- FOOTER -->
+    <footer>
+      <p>&copy 2022 MyManga Django Project</p>
+      <p>Van Huu An - 19TCLC_DT3</p>
+      <p>Bui Kim Phat - 19TCLC_DT3</p>
+      <p>Dao Danh Thai</p>
+    </footer>
+  </div>
+</body>
+</html>
