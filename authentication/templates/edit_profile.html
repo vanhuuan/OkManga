@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'base_profile.html' %}
 
 {% block content %}
 
 <h2 class ="text-center"> Edit Profile </h2>
 
 
-<form method="POST" action="{% url 'edit_profile' %}">
+<form method="POST" action="{% url 'edit_profile' %}" class="form_edit">
 		{% csrf_token %}
 		{% if form.errors %}
 		      <div class="alert alert-danger alart-dismissable" role ="alert">
