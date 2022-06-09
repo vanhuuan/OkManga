@@ -38,7 +38,6 @@ nav .title
     border: 0px solid #ccc;
     border-radius: 13px;
     padding: 50px 30px;   
-    /* box-shadow: 6px 5px 18px 1px rgb(11 11 11 / 58%); */
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin: 100px 0 30px 0;
     display: flex;
@@ -139,13 +138,3 @@ nav .title
     width: 75%;
 }
 
-input:-internal-autofill-selected {
-    appearance: menulist-button;
-    background-image: none !important;
-    background-color: -internal-light-dark(rgb(232, 240, 254), rgba(255, 255, 255, 0.4)) !important;
-    color: fieldtext !important;
-}
-
-.form_login input {
-    background-color: rgb(162, 6, 210) !important;
-  }
