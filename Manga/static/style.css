@@ -21,10 +21,6 @@
     max-width: 100%;
   }
   
-  h1 {
-    padding-top: 60px;  
-  }
-  
   .wrapper {
     margin: 0;
     padding: 0;
@@ -32,7 +28,7 @@
   
   /* HEADER */
   header {
-    padding: 20px 20px 0 20px;
+    padding: 0 20px 0 20px;
     position: fixed;
     top: 0;
     display: grid;  
@@ -43,12 +39,13 @@
     background-color: var(--primary);
     width: 100%;
     margin-bottom: 0px;  
+    z-index: 100;
   }
   
   .netflixLogo {
     grid-area: nt;
     padding-left: 30px;
-    padding-top: 0px;  
+    padding-top: 10px;  
     padding-bottom: 10px;
   }
   
@@ -98,7 +95,7 @@
   
   /* MAIN CONTIANER */
   .main-container {
-    padding: 50px;
+    padding: 100px;
   }
   
   .box {
@@ -119,9 +116,11 @@
   }
   
   .box img {
-    border-radius: 2px;
+    border-radius: 4px;
+    height: 230px;
+    width: 175px;
   }
-  
+
   /* LINKS */
   .link {
     padding: 50px;

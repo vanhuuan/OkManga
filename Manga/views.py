@@ -1,41 +1,23 @@
-from django.shortcuts import render, get_object_or_404
-from django.core.validators import validate_email
-from django.http import HttpResponse, HttpResponseRedirect
-
-# Create your views here.
-# from Manga.form import RegistrationForm
-# from Manga.models.user import User
+from django.shortcuts import render
+from Manga.models.chapter import Chapter
+from Manga.models.content import Content
+from Manga.models.manga import Manga
 
 
 def index(request):
-    return render(request, 'index.html')
+    all_manga = Manga.objects.all()
+    context = {'all_manga': all_manga}
+    return render(request, 'index.html', context)
 
+def detail(request, manga_id):
+    manga = Manga.objects.get(id=manga_id)
+    chapters = Chapter.objects.filter(manga=manga)
+    categories = manga.category.all()
+    context = {'manga': manga, 'categories': categories, 'chapters': chapters}
+    return render(request, 'detail.html', context)
 
-# def login(request):
-#     username = request.POST['username']
-#     password = request.POST['password']
-#     try:
-#         user = get_object_or_404(User, user_name=username)
-#         if user.password != password:
-#             return HttpResponse("User name or password is not correct")
-#         return render(request, "index.html", {'uid': user.id_user})
-#     except:
-#         return HttpResponse("User name or password is not correct")
-
-
-# def checkEmail(value):
-#     try:
-#         validate_email(value)
-#         return True
-#     except validate_email.ValidationError:
-#         return False
-
-
-# def register(request):
-#     form = RegistrationForm()
-#     if request.method == 'POST':
-#         form = RegistrationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect('/')
-#     return render(request, 'register.html', {'form': form})
+def view(request, chapter_id):
+    chapter = Chapter.objects.get(id=chapter_id)
+    content = Content.objects.filter(chapter=chapter)
+    context = {'chapter': chapter, 'content': content, 'prevChap': chapter_id, 'nextChap': chapter_id}
+    return render(request, 'view.html', context)

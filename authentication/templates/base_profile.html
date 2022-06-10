@@ -15,7 +15,7 @@
   <div class="wrap">
     <nav id="navbar_top" class="navbar navbar-expand-lg navbar-dark bg-dark">
       <span class="title">Manga</span>
-      <a class="navbar-brand" href="{% url 'home'  %}">Home</a>
+      <a class="navbar-brand" href="{% url 'Manga:index' %}">Home</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -27,18 +27,18 @@
         {% if user.is_authenticated %}
   
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          <a class="nav-link" href="{% url 'authentication:logout' %}">Logout</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'edit_profile' %}">Edit Profile</a>
+          <a class="nav-link" href="{% url 'authentication:edit_profile' %}">Edit Profile</a>
         </li>
   
         {% else %}
         <li class="nav-item active">
-          <a class=" nav-link" href="{% url 'login' %}">Login</a>
+          <a class=" nav-link" href="{% url 'authentication:login' %}">Login</a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'register' %}">Register</a>
+          <a class="nav-link" href="{% url 'authentication:register' %}">Register</a>
         </li>
   
         {% endif%}

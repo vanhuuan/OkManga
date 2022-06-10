@@ -40,19 +40,20 @@
     <!-- END OF HEADER -->
     
     <!-- MAIN CONTAINER -->
-    <section class="main-container" >
-      <div class="location" id="home">
-          <h1 id="home">Gần đây mới cập nhật</h1>
-          <div class="box">
-            {% if all_manga %}
-              {% for manga in all_manga %}
-                <a href="{% url 'Manga:detail' manga.id %}"><img src="{{manga.thumbnail}}" alt="{{manga.name}}"></a>
-              {% endfor %}
-            {% else %}
-              <p>Truyện chưa được cập nhật</p>
-            {% endif %}
-          </div>
-      </div>
+    <section class="main-container text-center" >
+      <h1 class="text-center">{{chapter}}</h1>
+      <a class="btn btn-success m-2 {% if prevChap == None %} disabled {% endif %}" href="{% url 'Manga:view' prevChap %}">Chương trước</a>
+      <a class="btn btn-success m-2 {% if nextChap == None %} disabled {% endif %}" href="{% url 'Manga:view' nextChap %}">Chương sau</a>
+        {% if content %}
+            {% for page in content %}
+                <div class="mx-auto"><img data-index="{{page.index}}" src="{{page.link}}" alt="{{page}}"/></div>
+            {% endfor %}
+        {% else %}
+            <p>Không có nội dung</p>
+        {% endif %}
+
+      <a class="btn btn-success m-2 {% if prevChap == None %} disabled {% endif %}" href="{% url 'Manga:view' prevChap %}">Chương trước</a>
+      <a class="btn btn-success m-2 {% if nextChap == None %} disabled {% endif %}" href="{% url 'Manga:view' nextChap %}">Chương sau</a>
     </section>
     <!-- END OF MAIN CONTAINER -->
 

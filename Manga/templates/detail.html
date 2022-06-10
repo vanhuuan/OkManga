@@ -41,18 +41,43 @@
     
     <!-- MAIN CONTAINER -->
     <section class="main-container" >
-      <div class="location" id="home">
-          <h1 id="home">Gần đây mới cập nhật</h1>
-          <div class="box">
-            {% if all_manga %}
-              {% for manga in all_manga %}
-                <a href="{% url 'Manga:detail' manga.id %}"><img src="{{manga.thumbnail}}" alt="{{manga.name}}"></a>
-              {% endfor %}
-            {% else %}
-              <p>Truyện chưa được cập nhật</p>
-            {% endif %}
-          </div>
-      </div>
+        <div class="row py-4">
+            <div class="col-sm-5 row">
+                <a class="mx-auto" href="{% url 'Manga:view' chapters.first.id %}"><img class="h-100 thumbnail" src="{{manga.thumbnail}}" alt="{{manga.name}}"/></a>
+            </div>
+            <div class="col-sm-5">
+                <h1>{{manga.name}}</h1>
+                <p><span class="text-muted">Trạng thái: </span> {{manga.status}}</p>
+                {% if manga.author %}
+                <p><span class="text-muted">Tác giả: </span> {{manga.author}}</p>
+                {% endif %}
+                <p><span class="text-muted">Thể loại: </span>
+                    {% for cate in categories %}
+                        <a href="#">{{cate.category}}</a>
+                    {% endfor %}
+                </p>
+                <p><span class="text-muted">Lượt xem: </span> {{manga.views}}</p>
+                <p><span class="text-muted">Số chương: </span> {{manga.chapters_number}}</p>
+                <p><span class="text-muted">Cập nhật lúc: </span> {{manga.updated_at}}</p>
+                <a class="btn btn-info m-2" href="{% url 'Manga:view' chapters.first.id %}">Đọc từ đầu</a><a class="btn btn-success m-2" href="{% url 'Manga:view' chapters.last.id %}">Đọc chương mới nhất</a>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table table-dark table-hover w-100">
+                <tr>
+                    <th>Tên chương</th>
+                    <th>Ngày cập nhật</th>
+                    <th>Lượt xem</th>
+                </tr>
+                {% for chap in chapters %}
+                    <tr>
+                        <td><a href="{% url 'Manga:view' chap.id %}">{{chap.name}}</a></td>
+                        <td>{{chap.modified_date}}</td>
+                        <td>{{chap.views}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </section>
     <!-- END OF MAIN CONTAINER -->
 

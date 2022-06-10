@@ -1,3 +1,4 @@
+cmd = """
 import json
 from Manga.models.manga import Manga
 from Manga.models.chapter import Chapter
@@ -18,14 +19,14 @@ for i,manga in enumerate(data):
                     chapters_number=manga["chapters_number"])
     new_manga.save()
     # Adding categories
-    for category in manga["genres"]:
-        find_genre = Category.objects.filter(name=category.strip())
+    for cate in manga["genres"]:
+        find_genre = Category.objects.filter(category=cate.strip())
         if find_genre.count() == 0:
-            new_genre = Category(name=category.strip())
+            new_genre = Category(category=cate.strip())
             new_genre.save()
-            new_manga.categories.add(new_genre)
+            new_manga.category.add(new_genre)
         else:
-            new_manga.categories.add(find_genre[0])
+            new_manga.category.add(find_genre[0])
     new_chapters = []
     # Adding chapters
     for ii,chapter in enumerate(manga["chapters"]):
@@ -46,3 +47,5 @@ for i,manga in enumerate(data):
     Chapter.objects.bulk_create(new_chapters)
     Content.objects.bulk_create(new_contents)
 print("Done!")
+"""
+exec(cmd)
