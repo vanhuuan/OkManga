@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
   <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
@@ -18,10 +22,22 @@
       <nav class="main-nav row">      
         <div class="my-auto p-3">
           <a href="{% url 'Manga:index' %}">Trang chủ</a>
-          <a href="#">Thể loại</a> 
-          <a href="#">Gần đây</a>
-          <a href="#">Hot</a>
-          <a href="#">Tất cả</a>        
+          <div class="d-inline dropdown show">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Thể loại
+            </a>
+          
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <div class="d-flex flex-wrap">
+                {% for cate in categories %}
+                <a href="{% url 'Manga:category' cate.id %}">{{cate.category}}</a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <a href="{% url 'Manga:recent' %}">Gần đây</a>
+          <a href="{% url 'Manga:hot' %}">Hot</a>
+          <a href="{% url 'Manga:all' %}">Tất cả</a>        
         </div>          
       </nav>
       <nav class="sub-nav row">
@@ -41,20 +57,58 @@
     
     <!-- MAIN CONTAINER -->
     <section class="main-container text-center" >
-      <h1 class="text-center">{{chapter}}</h1>
-      <a class="btn btn-success m-2 {% if prevChap == None %} disabled {% endif %}" href="{% url 'Manga:view' prevChap %}">Chương trước</a>
-      <a class="btn btn-success m-2 {% if nextChap == None %} disabled {% endif %}" href="{% url 'Manga:view' nextChap %}">Chương sau</a>
-        {% if content %}
-            {% for page in content %}
-                <div class="mx-auto"><img data-index="{{page.index}}" src="{{page.link}}" alt="{{page}}"/></div>
-            {% endfor %}
-        {% else %}
-            <p>Không có nội dung</p>
-        {% endif %}
+      <h1 class="text-center">{{chapter.name}} - <a href="{% url 'Manga:detail' chapter.manga.id %}">{{chapter.manga.name}}</a></h1>
+      {% if prevChap %}
+      <a class="btn btn-success m-2" href="{% url 'Manga:view' prevChap.id %}">Chương trước</a>
+      {% else %}
+      <a class="btn btn-success m-2 disabled" href="#">Chương trước</a>
+      {% endif %}
 
-      <a class="btn btn-success m-2 {% if prevChap == None %} disabled {% endif %}" href="{% url 'Manga:view' prevChap %}">Chương trước</a>
-      <a class="btn btn-success m-2 {% if nextChap == None %} disabled {% endif %}" href="{% url 'Manga:view' nextChap %}">Chương sau</a>
-    </section>
+      <select class="custom-select w-25" onchange="location = this.value">
+        {% for chap in chapList %}
+        {% if chapter.id == chap.id %}
+        <option value="{% url 'Manga:view' chap.id %}" selected>{{chap.name}}</option>
+        {% else %}
+        <option value="{% url 'Manga:view' chap.id %}">{{chap.name}}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+
+      {% if nextChap %}
+      <a class="btn btn-success m-2" href="{% url 'Manga:view' nextChap.id %}">Chương sau</a>
+      {% else %}
+      <a class="btn btn-success m-2 disabled" href="#">Chương sau</a>
+      {% endif %}
+
+      {% if content %}
+          {% for page in content %}
+              <div class="mx-auto"><img data-index="{{page.index}}" src="{{page.link}}" alt="{{page}}"/></div>
+          {% endfor %}
+      {% else %}
+          <p>Không có nội dung</p>
+      {% endif %}
+
+      {% if prevChap %}
+      <a class="btn btn-success m-2" href="{% url 'Manga:view' prevChap.id %}">Chương trước</a>
+      {% else %}
+      <a class="btn btn-success m-2 disabled" href="#">Chương trước</a>
+      {% endif %}
+
+      <select class="custom-select w-25" onchange="location = this.value">
+        {% for chap in chapList %}
+        {% if chapter.id == chap.id %}
+        <option value="{% url 'Manga:view' chap.id %}" selected>{{chap.name}}</option>
+        {% else %}
+        <option value="{% url 'Manga:view' chap.id %}">{{chap.name}}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+
+      {% if nextChap %}
+      <a class="btn btn-success m-2" href="{% url 'Manga:view' nextChap.id %}">Chương sau</a>
+      {% else %}
+      <a class="btn btn-success m-2 disabled" href="#">Chương sau</a>
+      {% endif %}    </section>
     <!-- END OF MAIN CONTAINER -->
 
     <!-- FOOTER -->

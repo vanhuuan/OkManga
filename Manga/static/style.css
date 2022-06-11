@@ -121,6 +121,15 @@
     width: 175px;
   }
 
+  .tooltip-inner {
+    max-width: 350px !important;
+  }
+
+  .dropdown-menu {
+    background-color: var(--dark);
+    color: var(--light);
+    width: 40vw;
+  }
   /* LINKS */
   .link {
     padding: 50px;
