@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new manga</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="module">
+        import {uploadThumbnail, getImgUrl} from  "/static/js/add_manga.js"
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#thumbnail').attr('src', e.target.result).width(800).height(200);
+                };
+                reader.readAsDataURL(input.files[0]);
+                console.log("1");
+                return uploadThumbnail(input.files[0])
+            }
+        }
+
+        function getImg() {
+            return getImgUrl();
+        }
+
+
+        window.getImg = getImg;
+        window.readURL = readURL;
+    </script>
+    <script>
+        function postImg(input) {
+            window.readURL(input)
+        }
+
+        function setImg() {
+            let url = window.getImg();
+            if (url === "failed")
+                return false;
+            if (url === "")
+                alert("Processing img");
+            document.getElementById("thumbnail").value = url;
+            return true;
+        }
+    </script>
+</head>
+<body>
+<div class="container mt-3">
+    <form method="post" onsubmit="return setImg()">
+    {% csrf_token %}
+        <div class="form-group">
+            <img id="thumbnail" src="#" alt="Thumb nail img"/>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" aria-describedby="mangaName"
+                   placeholder="Enter manga's name" required>
+        </div>
+        <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" class="form-control" id="author" name="author" placeholder="Enter author's name"
+                   required>
+        </div>
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-select" id="category" name="category" required>
+                {% for category in categories %}
+                    <option value= {{ category.id }}> {{ category.category }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="file-input">Thumbnail</label>
+            <input class="file-upload" type="file" id="file-input" name="file-input" onchange="postImg(this);"
+                   accept="image/jpeg" required>
+            <input type="hidden" name="thumbnail" id="thumbnail" value="">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Add">
+            <a href="list_user_manga.html" class="btn btn-cancel">Cancel</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
