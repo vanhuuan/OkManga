@@ -27,7 +27,21 @@
 
                 {# Will know if user is logged in or not#}
                 {% if user.is_authenticated %}
-
+                    <!-- authentication/avatar/person.jpg -->
+                    <!-- <div class="avatar-wrapper nav">
+                        <img src="/{{avatar_img}}" class="profile-pic rounded-circle shadow-4" name="avatar_img"
+                        style="width: 40px; " alt="Avatar" />
+                        <div class="upload-button">
+                            <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+                        </div>
+                    
+                        <input class="file-upload" type="file" accept="image/*"/>
+                        
+                    </div> -->
+                    <li class="nav-item active">
+                        <img src="https://img.freepik.com/free-icon/important-person_318-10744.jpg?w=2000" class="rounded-circle shadow-4"
+                        style="width: 40px; margin-top: 3px;" alt="Avatar" />
+                    </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'authentication:logout' %}">Logout</a>
                     </li>
