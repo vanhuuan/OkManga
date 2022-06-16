@@ -1,11 +1,25 @@
+from attr import field
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
+
+from authentication.models import Avatar
 from django import forms
 
 
-class EditProfileForm(UserChangeForm):
-    password = forms.CharField(label="", widget=forms.TextInput(attrs={'type': 'hidden'}))
+class ChangeAvatar(forms.ModelForm):
+    picture= forms.ImageField(widget=forms.FileInput(attrs={'class':'file-upload'}))
+    user= forms.CharField(label="", widget=forms.TextInput(attrs={'type': 'hidden'}))
+    class Meta:
+        model= Avatar
+        fields=('picture','user',)
+    def __init__(self, *args, **kwargs):      
+        super(forms.ModelForm, self).__init__(*args, **kwargs)
 
+
+class EditProfileForm(UserChangeForm):
+    
+    password = forms.CharField(label="", widget=forms.TextInput(attrs={'type': 'hidden'}))
+    
     class Meta:
         model = User
         # excludes private information from User
@@ -13,16 +27,16 @@ class EditProfileForm(UserChangeForm):
     
     def __init__(self, *args, **kwargs):
         super(UserChangeForm, self).__init__(*args, **kwargs)
-
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields[
             'username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
 
-        self.fields['first_name'].widget.attrs['class'] = 'form-control'
-        
         self.fields['last_name'].widget.attrs['class'] = 'form-control'
-
+        self.fields['first_name'].widget.attrs['class'] = 'form-control'
         self.fields['email'].widget.attrs['class'] = 'form-control'
+    
+
+     
         
         
 class SignUpForm(UserCreationForm):

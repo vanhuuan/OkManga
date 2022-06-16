@@ -21,13 +21,20 @@ nav .title
     font-weight: 600;
     text-shadow: 5px -5px 5px rgb(140, 197, 255);
 }
+.wrapbody
+{
+    margin: 55px 0;
+    display: flex; 
+    justify-content: center;
+    font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
 
 .container
 {
-    margin: 100px 0 30px 0;
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    margin: 100px 0 0 0;  
+    display: block;
+    
     align-items: center; 
-    width: 50%;
 }
 
