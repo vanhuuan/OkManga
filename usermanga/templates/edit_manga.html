@@ -136,7 +136,7 @@
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Status:</label>
                         <div class="col-lg-8">
-                            <input class="form-control" type="text" id="status" name="status" required value={{ manga.Status }}>
+                            <input class="form-control" type="text" id="status" name="status" required value={{ manga.status }}>
                         </div>
                     </div>
                     <div class="form-group">
@@ -145,7 +145,7 @@
                             <div class="ui-select">
                                 <select class="form-control selectpicker" id="category" name="category" required multiple aria-label="size 3 select example">
                                     {% for category in categories %}
-                                        {% if category == manga.category.name %}
+                                        {% if category in manga.category.all %}
                                             <option selected="selected" value= {{ category.id }}> {{ category.category }}</option>
                                         {% else %}
                                             <option value= {{ category.id }}> {{ category.category }}</option>
@@ -159,11 +159,11 @@
                     <p><span class="text-muted">Số chương: </span> {{manga.chapters_number}}</p>
                     <p><span class="text-muted">Cập nhật lúc: </span> {{manga.updated_at}}</p>
                     <input type="hidden" id="mangaId" name="mangaId" value= {{ manga.id }}>
-                    <input type="hidden" name="thumbnailImg" id="thumbnailImg">
+                    <input type="hidden" name="thumbnailImg" id="thumbnailImg" value= {{ manga.thumbnail }}>
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
                         <div class="col-md-8">
-                            <input type="submit" class="btn btn-primary" value="Save Changes">
+                            <input type="submit" class="btn btn-primary" value="Save Changes" onsubmit="setImg()">
                             <span></span>
                             <a href= "{% url "usermanga:home"  %}" class="btn btn-default">Cancel</a>
                         </div>
@@ -173,6 +173,8 @@
         </div>
     </div>
     <hr>
+
+
     <!-- END OF MAIN CONTAINER -->
 
     <!-- FOOTER -->

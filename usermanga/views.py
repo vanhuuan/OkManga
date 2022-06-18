@@ -50,6 +50,7 @@ def update(request):
     thumbnail = request.POST['thumbnailImg']
     description = request.POST['description']
     status = request.POST["status"]
+    print(status)
     author = request.POST["author"]
     mg = Manga.get_manga_by_id(manga_id)
     mg.thumbnail = thumbnail

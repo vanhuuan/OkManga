@@ -47,7 +47,7 @@
     <!-- MAIN CONTAINER -->
     <section class="main-container">
         <div class="location" id="home">
-            <h1 id="home">Truyện của bạn đã đăng</h1>
+            <h1>Truyện của bạn đã đăng</h1>
             <div class="box">
                 {% if mangas %}
                     {% for manga in mangas %}
@@ -59,8 +59,10 @@
                 {% endif %}
             </div>
         </div>
-        <a href="{% url 'usermanga:add' %}">Add new manga</a>
+        <hr class="my-4">
+        <a class="btn btn-primary btn-lg active" href="{% url 'usermanga:add' %}">Add new manga</a>
     </section>
+
     <!-- END OF MAIN CONTAINER -->
 
     <!-- FOOTER -->
