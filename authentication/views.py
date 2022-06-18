@@ -12,10 +12,10 @@ from .models import Avatar
 def home(request):
 
     if request.user.is_authenticated:
-        #avatar=get_object_or_404(Avatar, user=request.user)
-        #avatar_img=avatar.picture
-        # return render(request, 'home.html', {'avatar_img':avatar_img})
-        return render(request, 'home.html')
+        avatar=get_object_or_404(Avatar, user=request.user)
+        avatar_img=avatar.picture
+        return render(request, 'home.html', {'avatar_img':avatar_img})
+        # return render(request, 'home.html')
     return render(request, 'home.html',{})
 
 
@@ -29,10 +29,10 @@ def login_user(request):
             login(request, user)          
             messages.success(request, ('You are logged in'))
             request.session["user"] = user.id
-            # avatar=get_object_or_404(Avatar,user=user)
-            # avatar_img=avatar.picture
-            # return render(request, 'home.html', {'avatar_img':avatar_img})
-            return render(request, 'home.html')
+            avatar=get_object_or_404(Avatar,user=user)
+            avatar_img=avatar.picture
+            return render(request, 'home.html', {'avatar_img':avatar_img})
+            # return render(request, 'home.html')
            
             
         else:
@@ -58,8 +58,8 @@ def register_user(request):
             password = form.cleaned_data['password1']
             user = authenticate(username=username, password=password)
             login(request, user)
-            # avatar=Avatar(user=user,picture='authentication/avatar/person.jpg')
-            # avatar.save()
+            avatar=Avatar(user=user,picture='authentication/avatar/person.jpg')
+            avatar.save()
             messages.success(request, 'You are now registered')
             return redirect('authentication:home')
     else:
@@ -80,12 +80,12 @@ def edit_profile(request):
             form.save()
             # avatar_form.save()
             img=avatar_form.cleaned_data['picture']
-            # avatar.picture=img
-            # avatar.save()
-            # messages.success(request, ('You have edited your profile'))               
-            # avatar_img=avatar.picture
-            # return render(request, 'home.html', {'avatar_img':avatar_img})
-            return render(request, 'home.html')
+            avatar.picture=img
+            avatar.save()
+            messages.success(request, ('You have edited your profile'))               
+            avatar_img=avatar.picture
+            return render(request, 'home.html', {'avatar_img':avatar_img})
+            # return render(request, 'home.html')
 
     else:  # passes in user information
         form = EditProfileForm(instance=request.user)    
@@ -101,21 +101,19 @@ def edit_profile(request):
 
 
 def change_password(request):
+    avatar=get_object_or_404(Avatar,user=request.user)
+    avatar_img=avatar.picture
     if request.method == 'POST':
         form = PasswordChangeForm(data=request.POST, user=request.user)
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
             messages.success(request, ('You have edited your password'))
-            # avatar=get_object_or_404(Avatar,user=request.user)
-            # avatar_img=avatar.picture
+           
             return render(request, 'home.html', {'avatar_img':avatar_img})
            
     else:  
         # passes in user information
-        form = PasswordChangeForm(user=request.user)
-
-        # avatar=get_object_or_404(Avatar,user=request.user)
-        # avatar_img=avatar.picture
-        context = {'form': form,'avatar_img':avatar_img}
-        return render(request, 'change_password.html', context)
+        form = PasswordChangeForm(user=request.user)     
+    context = {'form': form,'avatar_img':avatar_img}
+    return render(request, 'change_password.html', context)
