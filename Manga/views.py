@@ -1,6 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.validators import validate_email
 from django.http import HttpResponse, HttpResponseRedirect
+
+from Manga.models.category import Category
+from Manga.models.chapter import Chapter
+from Manga.models.content import Content
+from Manga.models.manga import Manga
 from authentication.models import Avatar
 
 

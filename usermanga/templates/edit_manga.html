@@ -63,7 +63,7 @@
 
 </head>
 <body>
-<div class="wrapper">
+<div class="wrapper" style="padding-top: 30px">
     <!-- HEADER -->
     <header>
         <div class="netflixLogo">
@@ -97,7 +97,7 @@
 
     <!-- MAIN CONTAINER -->
     <div class="container">
-        <h1>Edit Profile</h1>
+        <h1>Edit Manga</h1>
         <hr>
         <div class="row">
             <!-- left column -->
@@ -166,11 +166,34 @@
                             <input type="submit" class="btn btn-primary" value="Save Changes" onsubmit="setImg()">
                             <span></span>
                             <a href= "{% url "usermanga:home"  %}" class="btn btn-default">Cancel</a>
+                            <a href= "{% url "usermanga:deletemanga" manga.id  %}" class="btn btn-warning">Delete</a>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+        <div class="row">
+            <table class="table table-dark table-hover w-100">
+                <tr>
+                    <th>Tên chương</th>
+                    <th>Ngày cập nhật</th>
+                    <th>Lượt xem</th>
+                    <th>Xóa</th>
+                </tr>
+                {% for chap in chapters %}
+                    <tr>
+                        <td><a href="{% url 'Manga:view' chap.id %}">{{chap.name}}</a></td>
+                        <td>{{chap.modified_date}}</td>
+                        <td>{{chap.views}}</td>
+                        <td><a href="{% url 'usermanga:deletechap' chap.id %}"> Xóa </a></td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td><a href="{% url 'usermanga:addchapter' manga.id %}">Thêm chapter mới</a></td>
+                </tr>
+            </table>
+        </div>
+
     </div>
     <hr>
 

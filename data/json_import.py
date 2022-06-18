@@ -5,7 +5,7 @@ from Manga.models.chapter import Chapter
 from Manga.models.category import Category
 from Manga.models.content import Content
 
-json_path = "E:\\School\\Python\\OkManga\\data\\manga_data.json"
+json_path = "E:\\CodeLTPYthon\\OkManga\\data\\manga_data.json"
 with open(json_path, encoding='utf-8') as f:
     data = json.load(f)
 for i,manga in enumerate(data):

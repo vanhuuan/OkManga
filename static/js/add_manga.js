@@ -1,7 +1,7 @@
 import {getStorage, ref, uploadBytesResumable, getDownloadURL} from "https://www.gstatic.com/firebasejs/9.6.8/firebase-storage.js";
 import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js";
 
-export var imgUrl = ""
+export var imgUrl = ''
 
 export function uploadThumbnail(imgThumbnail) {
     const firebaseConfig = {
@@ -60,6 +60,8 @@ export function uploadThumbnail(imgThumbnail) {
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                 console.log('File available at', downloadURL);
                 imgUrl = downloadURL;
+                var urls = document.getElementById("urls");
+                urls.value = urls.value + ";"+ downloadURL
             });
         }
     );
