@@ -2,13 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from django.core.validators import validate_email
 from django.http import HttpResponse, HttpResponseRedirect
 
+from authentication.models import Avatar
+from Manga.models.manga import Manga
 from Manga.models.category import Category
 from Manga.models.chapter import Chapter
 from Manga.models.content import Content
-from Manga.models.manga import Manga
-from authentication.models import Avatar
-
-
+from Manga.models.history import History
 # Create your views here.
 # from Manga.form import RegistrationForm
 # from Manga.models.user import User
@@ -72,6 +71,20 @@ def view(request, chapter_id):
     chapter = Chapter.objects.get(id=chapter_id)
     chapter_list = Chapter.objects.filter(manga=chapter.manga).order_by("index")
     content = Content.objects.filter(chapter=chapter).order_by("index")
+
+    # Create history read manga
+    try:
+        history= History.objects.get(user=request.user,chapter=chapter)       
+    except:
+        history=History(user=request.user,chapter=chapter)
+        history.save()
+
+    chapter.views += 1
+    chapter.manga.views += 1
+    chapter.save()
+    chapter.manga.save()
+
+    
     prev = None
     next = None
     try:
@@ -85,3 +98,9 @@ def view(request, chapter_id):
     context = {'chapter': chapter, 'content': content, 'chapList': chapter_list, 'prevChap': prev, 'nextChap': next,
                'categories': categories}
     return render(request, 'view.html', context)
+
+def list_history(request):
+    history=reversed(History.objects.filter(user=request.user))
+    print(history)
+    context={'list_history':history}
+    return render(request, 'history.html', context)

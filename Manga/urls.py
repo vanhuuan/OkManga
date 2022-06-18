@@ -10,5 +10,6 @@ urlpatterns = [
     path('category/<int:category_id>/', views.category, name='category'),
     path('recent/', views.recent, name='recent'),
     path('hot/', views.hot, name='hot'),
-    path('all/', views.all, name='all')
+    path('all/', views.all, name='all'),
+    path('history/', views.list_history, name='list_history'),
 ]

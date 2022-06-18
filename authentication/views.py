@@ -31,6 +31,7 @@ def login_user(request):
             avatar=get_object_or_404(Avatar,user=user)
             avatar_img=avatar.picture
             return render(request, 'home.html', {'avatar_img':avatar_img})
+
            
             
         else:
@@ -80,6 +81,7 @@ def edit_profile(request):
             img=avatar_form.cleaned_data['picture']
             avatar.picture=img
             avatar.save()
+
             messages.success(request, ('You have edited your profile'))
             avatar_img=avatar.picture
             return render(request, 'home.html', {'avatar_img':avatar_img})
@@ -98,12 +100,15 @@ def edit_profile(request):
 
 
 def change_password(request):
+    avatar=get_object_or_404(Avatar,user=request.user)
+    avatar_img=avatar.picture
     if request.method == 'POST':
         form = PasswordChangeForm(data=request.POST, user=request.user)
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
             messages.success(request, ('You have edited your password'))
+
             avatar=get_object_or_404(Avatar,user=request.user)
             avatar_img=avatar.picture
             return render(request, 'home.html', {'avatar_img':avatar_img})
@@ -116,3 +121,4 @@ def change_password(request):
         avatar_img=avatar.picture
         context = {'form': form,'avatar_img':avatar_img}
         return render(request, 'change_password.html', context)
+
