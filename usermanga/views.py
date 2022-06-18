@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST, require_GET
 
 from Manga.models import manga
 from Manga.models.category import Category
@@ -18,8 +19,8 @@ def add(request):
         author = request.POST['author']
         name = request.POST['name']
         category = request.POST['category']
-        thumbnail = request.POST['thumbnail']
-        print(thumbnail)
+        thumbnail = request.POST['thumbnailImg']
+        print("thumbnail:", thumbnail)
         new_manga = Manga.objects.create(author=author, name=name, thumbnail=thumbnail,
                                          status="active")
         new_manga.category.add(category)
@@ -28,3 +29,33 @@ def add(request):
     else:
         listCategory = Category.objects.all()
         return render(request, 'add_manga.html', {"categories": listCategory})
+
+
+@require_GET
+def edit(request, manga_id):
+    mg = Manga.objects.get(id=manga_id)
+    listCategory = Category.objects.all()
+    context = {"categories": listCategory, "manga": mg}
+    return render(request, 'edit_manga.html', context)
+
+
+@require_POST
+def update(request):
+    manga_id = request.POST['mangaId']
+    name = request.POST['name']
+    category = request.POST['category']
+    thumbnail = request.POST['thumbnailImg']
+    description = request.POST['description']
+    status = request.POST["status"]
+    author = request.POST["author"]
+    mg = Manga.get_manga_by_id(manga_id)
+    mg.thumbnail = thumbnail
+    mg.description = description
+    mg.status = status
+    mg.author = author
+    mg.name = name
+    mg.save()
+    # Manga.objects.filter(id=manga_id).update(thumbnail=thumbnail, description=description, status=status, author=author,
+    #                                          name=name, category = ca)
+
+    return home(request)
