@@ -8,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/CSS/profile2.css">
+    <link rel="stylesheet" href="{% static 'CSS/base_profile.css'%}">
     <title>OKManga</title>
   </head>
   <body>
@@ -23,6 +23,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
   
+<<<<<<< HEAD
         {# Will know if user is logged in or not#}
         {% if user.is_authenticated %}
   
@@ -42,6 +43,33 @@
         </li>
   
         {% endif%}
+=======
+          {# Will know if user is logged in or not#}
+          {% if user.is_authenticated %}
+
+            <li class="nav-item active">
+             
+              <img src="/{{ avatar_img }}" class="rounded-circle shadow-4"
+                style="width: 40px ;height: 40px; margin-top: 3px;margin-right: 10px;" alt="Avatar" />
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'authentication:logout' %}">Logout</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'authentication:edit_profile' %}">Edit Profile</a>
+            </li>
+
+          {% else %}
+              <li class="nav-item active">
+                  <a class=" nav-link" href="{% url 'authentication:login' %}">Login</a>
+              </li>
+
+              <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'authentication:register' %}">Register</a>
+              </li>
+
+          {% endif %}
+>>>>>>> main
   
         </ul>
   
@@ -50,21 +78,23 @@
     <br/>
   
     <div class="wrapbody">
-      <div class ="container">
+      
+      <div class ="container"> 
         {% if messages %}
           {% for message in messages %}
-            <div class="alert alert-danger alart-dismissable" role ="alert">
-                <button class="close" data-dismiss="alert">
-                    <small><sup>x</sup></small>
-                  </button>
-                {{ message }}
-              </div>
-            {% endfor%}
-          {% endif %}
-  
-  
-    {% block content %}
-    {% endblock %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong> {{ message }}</strong> 
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span class="button_close" aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            
+          {% endfor%}
+        {% endif %}
+      
+      
+        {% block content %}
+        {% endblock %}
       </div>
     </div>
   </div>
@@ -72,7 +102,6 @@
    
 
     
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -81,20 +110,44 @@
   </body>
 
   <script>
+    // croll menubar
     document.addEventListener("DOMContentLoaded", function(){
-    window.addEventListener('scroll', function() {
-      if (window.scrollY > 50) {
-        document.getElementById('navbar_top').classList.add('fixed-top');
-        // add padding top to show content behind navbar
-        navbar_height = document.querySelector('.navbar').offsetHeight;
-        document.body.style.paddingTop = navbar_height + 'px';
-      } else {
-        document.getElementById('navbar_top').classList.remove('fixed-top');
-         // remove padding top from body
-        document.body.style.paddingTop = '0';
-      } 
-    });
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          document.getElementById('navbar_top').classList.add('fixed-top');
+          // add padding top to show content behind navbar
+          navbar_height = document.querySelector('.navbar').offsetHeight;
+          document.body.style.paddingTop = navbar_height + 'px';
+        } else {
+          document.getElementById('navbar_top').classList.remove('fixed-top');
+          // remove padding top from body
+          document.body.style.paddingTop = '0';
+        } 
+      });
     }); 
+
+    // Upload avatar picture
+    $(document).ready(function() {
+      var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.profile-pic').attr('src', e.target.result);
+            }      
+            reader.readAsDataURL(input.files[0]);
+        }
+      }
+    
+      $(".file-upload").on('change', function(){
+          readURL(this);
+          
+      });
+      
+      $(".upload-button").on('click', function() {
+        $(".file-upload").click();
+      });
+    });
+
 </script>
 
 </html>

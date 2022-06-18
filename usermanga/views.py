@@ -18,12 +18,15 @@ def add(request):
         userId = request.user.id
         author = request.POST['author']
         name = request.POST['name']
-        category = request.POST['category']
+        categories = request.POST.getlist("category")
         thumbnail = request.POST['thumbnailImg']
+        description = request.POST['description']
+        status = request.POST["status"]
         print("thumbnail:", thumbnail)
         new_manga = Manga.objects.create(author=author, name=name, thumbnail=thumbnail,
-                                         status="active")
-        new_manga.category.add(category)
+                                         status=status, description = description)
+        for category in categories:
+            new_manga.category.add(category)
         UserManga.objects.create(userId_id=userId, manga_id=new_manga.id)
         return home(request)
     else:
@@ -43,7 +46,7 @@ def edit(request, manga_id):
 def update(request):
     manga_id = request.POST['mangaId']
     name = request.POST['name']
-    category = request.POST['category']
+    categories = request.POST.getlist("category")
     thumbnail = request.POST['thumbnailImg']
     description = request.POST['description']
     status = request.POST["status"]
@@ -55,7 +58,8 @@ def update(request):
     mg.author = author
     mg.name = name
     mg.save()
-    # Manga.objects.filter(id=manga_id).update(thumbnail=thumbnail, description=description, status=status, author=author,
-    #                                          name=name, category = ca)
+    mg.category.clear()
+    for category in categories:
+        mg.category.add(category)
 
     return home(request)
