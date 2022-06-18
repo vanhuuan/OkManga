@@ -13,6 +13,7 @@ class Manga(models.Model):
     category = models.ManyToManyField(Category)
     views = models.PositiveIntegerField(default=0)
     chapters_number = models.PositiveIntegerField(default=0)
+    summary = models.CharField(max_length=1000)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
