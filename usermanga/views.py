@@ -90,7 +90,8 @@ def create(request):
         index += 1
         Content.objects.create(chapter_id=newChapter.id, index=index, link=img)
     listCategory = Category.objects.all()
-    context = {"categories": listCategory, "manga": mg}
+    chapters = Chapter.objects.filter(manga_id=manga_id).order_by("index")
+    context = {"categories": listCategory, "manga": mg, 'chapters': chapters}
     return render(request, 'edit_manga.html', context)
 
 

@@ -32,8 +32,6 @@ def login_user(request):
             avatar_img=avatar.picture
             return render(request, 'home.html', {'avatar_img':avatar_img})
 
-           
-            
         else:
             messages.success(request, ('Error logging in'))
             # re routes to login page upon unsucessful login

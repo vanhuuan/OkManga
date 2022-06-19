@@ -84,7 +84,7 @@
                 <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
                 <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a>
                 {% if request.user.is_authenticated %}
-                    {{ request.user }}
+                    <a href="{% url 'authentication:home' %}">{{ request.user }}</a>
                     <a href="{% url 'authentication:logout' %}"><i class="fas fa-power-off sub-nav-logo"></i> Đăng xuất</a>
                 {% else %}
                     <a href="{% url 'authentication:register' %}">Đăng ký</a>

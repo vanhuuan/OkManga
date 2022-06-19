@@ -11,15 +11,16 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('Manga', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Avatar',
+            name='UserManga',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('picture', models.ImageField(upload_to='authentication/avatar')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('manga', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Manga.manga')),
+                ('userId', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
