@@ -12,4 +12,5 @@ urlpatterns = [
     path('hot/', views.hot, name='hot'),
     path('all/', views.all, name='all'),
     path('history/', views.list_history, name='list_history'),
+    path('search/', views.search, name="search")
 ]
