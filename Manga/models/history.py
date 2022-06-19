@@ -1,7 +1,7 @@
 from django.db import models
 
 from Manga.models.chapter import Chapter
-from Manga.models.user import User
+from django.contrib.auth.models import User
 
 
 class History(models.Model):

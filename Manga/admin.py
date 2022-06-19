@@ -6,8 +6,7 @@ from Manga.models.chapter import Chapter
 from Manga.models.manga import Manga
 from Manga.models.content import Content
 from Manga.models.history import History
-from Manga.models.role import Role
-from Manga.models.user import User
+
 
 class ContentAdmin(admin.ModelAdmin):
     search_fields = ['chapter__manga__name']
@@ -21,8 +20,6 @@ class MangaAdmin(admin.ModelAdmin):
     search_fields = ['name']
     ordering = ('name',)
 
-admin.site.register(Role)
-admin.site.register(User)
 admin.site.register(Manga, MangaAdmin)
 admin.site.register(Chapter, ChapterAdmin)
 admin.site.register(Content, ContentAdmin)

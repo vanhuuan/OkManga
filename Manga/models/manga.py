@@ -9,6 +9,7 @@ class Manga(models.Model):
     thumbnail = models.CharField(max_length=200)
     status = models.CharField(max_length=50)
     author = models.CharField(max_length=50, blank=True)
+    description = models.CharField(max_length=200, default="A great manga")
     category = models.ManyToManyField(Category)
     views = models.PositiveIntegerField(default=0)
     chapters_number = models.PositiveIntegerField(default=0)

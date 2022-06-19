@@ -285,3 +285,13 @@
       font-size: 15px;
     }  
   }
+
+.list {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+}
+.table{
+  width: 50%;
+  max-width: 70%;
+}
