@@ -1,0 +1,50 @@
+{% load static %}
+    <!-- HEADER -->
+    <header>
+        <div class="netflixLogo">
+          <a id="logo" class="navbar-brand" href="{% url 'Manga:index' %}"><img src="{% static 'img/logo.png' %}" alt="MyManga logo"></a>
+        </div>      
+        <nav class="main-nav row">      
+          <div class="my-auto p-3">
+            <a href="{% url 'Manga:index' %}">Trang chủ</a>
+            <div class="d-inline dropdown show">
+              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Thể loại
+              </a>
+            
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <div class="d-flex flex-wrap">
+                  {% for cate in categories %}
+                  <a href="{% url 'Manga:category' cate.id %}">{{cate.category}}</a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <a href="{% url 'Manga:recent' %}">Gần đây</a>
+            <a href="{% url 'Manga:hot' %}">Hot</a>
+            <a href="{% url 'Manga:all' %}">Tất cả</a>
+            <a href="{% url 'Manga:list_history' %}">Lịch sử</a>  
+            <form class="d-inline-block ml-2" action="{% url 'Manga:search' %}" method="POST">
+              {% csrf_token %}
+              <div class="input-group">
+                <input name="mangaSearch" type="text" class="form-control" placeholder="Tìm kiếm tên truyện..." aria-label="Manga search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                  <button class="btn btn-secondary" type="submit"><i class="fas fa-search sub-nav-logo"></i></button>
+                </div>
+              </div> 
+            </form>      
+          </div>          
+        </nav>
+        <nav class="sub-nav row">
+          <div class="my-auto">
+            <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a>
+            {% if request.user.is_authenticated %}
+              <a href="{% url 'authentication:home' %}">{{ request.user }}</a>
+              <a href="{% url 'authentication:logout' %}"><i class="fas fa-power-off sub-nav-logo"></i> Đăng xuất</a>
+            {% else %}
+              <a href="{% url 'authentication:register' %}">Đăng ký</a><a href="{% url 'authentication:login' %}">Đăng nhập</a>
+            {% endif %}
+          </div>
+        </nav>      
+      </header>
+      <!-- END OF HEADER -->

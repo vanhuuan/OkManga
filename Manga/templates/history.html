@@ -20,47 +20,7 @@
 </head>
 <body>
   <div class="wrapper">
-    <!-- HEADER -->
-    <header>
-      <div class="netflixLogo">
-        <a id="logo" class="navbar-brand" href="{% url 'Manga:index' %}"><img src="{% static 'img/logo.png' %}" alt="MyManga logo"></a>
-      </div>      
-      <nav class="main-nav row">      
-        <div class="my-auto p-3">
-          <a href="{% url 'Manga:index' %}">Trang chủ</a>
-          <div class="d-inline dropdown show">
-            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Thể loại
-            </a>
-          
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <div class="d-flex flex-wrap">
-                {% for cate in categories %}
-                  <a href="{% url 'Manga:category' cate.id %}">{{cate.category}}</a>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-          <a href="{% url 'Manga:recent' %}">Gần đây</a>
-          <a href="{% url 'Manga:hot' %}">Hot</a>
-          <a href="{% url 'Manga:all' %}">Tất cả</a>   
-          <a href="{% url 'Manga:list_history' %}">Lịch sử</a>       
-        </div>          
-      </nav>
-      <nav class="sub-nav row">
-        <div class="my-auto">
-          <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
-          <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a>
-          {% if request.user.is_authenticated %}
-            <a href="{% url 'authentication:home' %}">{{ request.user }}</a>
-            <a href="{% url 'authentication:logout' %}"><i class="fas fa-power-off sub-nav-logo"></i> Đăng xuất</a>
-          {% else %}
-            <a href="{% url 'authentication:register' %}">Đăng ký</a><a href="{% url 'authentication:login' %}">Đăng nhập</a>
-          {% endif %}
-        </div>
-      </nav>      
-    </header>
-    <!-- END OF HEADER -->
+    {% include 'header.html' %}
     
     <!-- MAIN CONTAINER -->
     <section class="main-container" >
@@ -91,13 +51,7 @@
     </section>
     <!-- END OF MAIN CONTAINER -->
 
-    <!-- FOOTER -->
-    <footer>
-      <p>&copy 2022 MyManga Django Project</p>
-      <p>Van Huu An - 19TCLC_DT3</p>
-      <p>Bui Kim Phat - 19TCLC_DT3</p>
-      <p>Dao Danh Thai - 19TCLC_DT1</p>
-    </footer>
+    {% include 'footer.html' %}
   </div>
 </body>
 </html>
