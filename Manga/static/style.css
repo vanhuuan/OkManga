@@ -3,6 +3,7 @@
     --primary: #141414;
     --light: #F3F3F3;
     --dark: 	#686868;
+    --link: #83a9cb;
   }
   
   html, body {
@@ -131,6 +132,12 @@
     width: 40vw;
   }
   /* LINKS */
+  a {
+    color: var(--link);
+  }
+  .dropdown-menu a:hover {
+    color: var(--link);
+  }
   .link {
     padding: 50px;
   }
