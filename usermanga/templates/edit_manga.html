@@ -65,39 +65,12 @@
 <body>
 <div class="wrapper" style="padding-top: 30px">
     <!-- HEADER -->
-    <header>
-        <div class="netflixLogo">
-            <a id="logo" class="navbar-brand" href="{% url 'Manga:index' %}"><img src="{% static 'img/logo.png' %}"
-                                                                                  alt="MyManga logo"></a>
-        </div>
-        <nav class="main-nav row">
-            <div class="my-auto p-3">
-                <a href="{% url 'Manga:index' %}">Trang chủ</a>
-                <a href="#">Thể loại</a>
-                <a href="#">Gần đây</a>
-                <a href="#">Hot</a>
-                <a href="#">Tất cả</a>
-            </div>
-        </nav>
-        <nav class="sub-nav row">
-            <div class="my-auto">
-                <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
-                <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a>
-                {% if request.user.is_authenticated %}
-                    <a href="{% url 'authentication:home' %}">{{ request.user }}</a>
-                    <a href="{% url 'authentication:logout' %}"><i class="fas fa-power-off sub-nav-logo"></i> Đăng xuất</a>
-                {% else %}
-                    <a href="{% url 'authentication:register' %}">Đăng ký</a>
-                    <a href="{% url 'authentication:login' %}">Đăng nhập</a>
-                {% endif %}
-            </div>
-        </nav>
-    </header>
+    {% include 'header.html' %}
     <!-- END OF HEADER -->
 
     <!-- MAIN CONTAINER -->
-    <div class="container">
-        <h1>Edit Manga</h1>
+    <div class="main-container">
+        <h1>Chỉnh sửa truyện</h1>
         <hr>
         <div class="row">
             <!-- left column -->
@@ -111,36 +84,36 @@
 
             <!-- edit form column -->
             <div class="col-md-9 personal-info">
-                <h3>Manga info</h3>
+                <h3>Thông tin truyện</h3>
 
                 <form method="post" class="form-horizontal" role="form" onsubmit="setImg()" action=" {% url "usermanga:update" %}">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label class="col-lg-3 control-label">Name:</label>
+                        <label class="col-lg-3 control-label">Tên truyện :</label>
                         <div class="col-lg-8">
                             <input class="form-control" type="text" id="name" name="name" required value={{ manga.name }} >
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-3 control-label">Author:</label>
+                        <label class="col-lg-3 control-label">Tác giả :</label>
                         <div class="col-lg-8">
                             <input class="form-control" type="text" id="author" name="author" required value={{ manga.author }}>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-3 control-label">Description:</label>
+                        <label class="col-lg-3 control-label">Tóm tắt:</label>
                         <div class="col-lg-8">
                             <input class="form-control" type="text" id="description" name="description" required value={{ manga.description }}>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-3 control-label">Status:</label>
+                        <label class="col-lg-3 control-label">Trạng thái :</label>
                         <div class="col-lg-8">
                             <input class="form-control" type="text" id="status" name="status" required value={{ manga.status }}>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-3 control-label">Category:</label>
+                        <label class="col-lg-3 control-label">Thể loại:</label>
                         <div class="col-lg-8">
                             <div class="ui-select">
                                 <select class="form-control selectpicker" id="category" name="category" required multiple aria-label="size 3 select example">
@@ -163,17 +136,17 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
                         <div class="col-md-8">
-                            <input type="submit" class="btn btn-primary" value="Save Changes" onsubmit="setImg()">
+                            <input type="submit" class="btn btn-primary" value="Lưu" onsubmit="setImg()">
                             <span></span>
-                            <a href= "{% url "usermanga:home"  %}" class="btn btn-default">Cancel</a>
-                            <a href= "{% url "usermanga:deletemanga" manga.id  %}" class="btn btn-warning">Delete</a>
+                            <a href= "{% url "usermanga:home"  %}" class="btn btn-default">Quay về </a>
+                            <a href= "{% url "usermanga:deletemanga" manga.id  %}" class="btn btn-warning">Xóa truyện</a>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
         <div class="row">
-            <table class="table table-dark table-hover w-100">
+            <table class="table table-hover w-100">
                 <tr>
                     <th>Tên chương</th>
                     <th>Ngày cập nhật</th>
@@ -201,12 +174,7 @@
     <!-- END OF MAIN CONTAINER -->
 
     <!-- FOOTER -->
-    <footer>
-        <p>&copy 2022 MyManga Django Project</p>
-        <p>Van Huu An - 19TCLC_DT3</p>
-        <p>Bui Kim Phat - 19TCLC_DT3</p>
-        <p>Dao Danh Thai</p>
-    </footer>
+     {% include 'footer.html' %}
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

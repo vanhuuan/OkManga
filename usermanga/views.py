@@ -26,7 +26,7 @@ def add(request):
         status = request.POST["status"]
         print("thumbnail:", thumbnail)
         new_manga = Manga.objects.create(author=author, name=name, thumbnail=thumbnail,
-                                         status=status, description=description)
+                                         status=status, summary=description)
         for category in categories:
             new_manga.category.add(category)
         UserManga.objects.create(userId_id=userId, manga_id=new_manga.id)
@@ -53,11 +53,10 @@ def update(request):
     thumbnail = request.POST['thumbnailImg']
     description = request.POST['description']
     status = request.POST["status"]
-    print(status)
     author = request.POST["author"]
     mg = Manga.get_manga_by_id(manga_id)
     mg.thumbnail = thumbnail
-    mg.description = description
+    mg.summary = description
     mg.status = status
     mg.author = author
     mg.name = name

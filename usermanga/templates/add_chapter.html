@@ -26,53 +26,26 @@
 <body>
 <div class="wrapper">
     <!-- HEADER -->
-    <header>
-        <div class="netflixLogo">
-            <a id="logo" class="navbar-brand" href="{% url 'Manga:index' %}"><img src="{% static 'img/logo.png' %}"
-                                                                                  alt="MyManga logo"></a>
-        </div>
-        <nav class="main-nav row">
-            <div class="my-auto p-3">
-                <a href="{% url 'Manga:index' %}">Trang chủ</a>
-                <a href="#">Thể loại</a>
-                <a href="#">Gần đây</a>
-                <a href="#">Hot</a>
-                <a href="#">Tất cả</a>
-            </div>
-        </nav>
-        <nav class="sub-nav row">
-            <div class="my-auto">
-                <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
-                <a href="#"><i class="fas fa-bell sub-nav-logo"></i></a>
-                {% if request.user.is_authenticated %}
-                    <a href="{% url 'authentication:home' %}">{{ request.user }}</a>
-                    <a href="{% url 'authentication:logout' %}"><i class="fas fa-power-off sub-nav-logo"></i> Đăng xuất</a>
-                {% else %}
-                    <a href="{% url 'authentication:register' %}">Đăng ký</a>
-                    <a href="{% url 'authentication:login' %}">Đăng nhập</a>
-                {% endif %}
-            </div>
-        </nav>
-    </header>
+    {% include 'header.html' %}
     <!-- END OF HEADER -->
 
     <!-- MAIN CONTAINER -->
-    <div class="container">
-        <h1>Add chapter for {{ manga.name }}</h1>
+    <div class="main-container">
+        <h1>Thêm chapter cho truyện {{ manga.name }}</h1>
         <hr>
         <form method="post" class="form-horizontal" role="form" onsubmit="setImg()" action=" {% url "usermanga:create" %}">
             {% csrf_token %}
         <input type="file" id="file-input" accept="image/png, image/jpeg" onchange="postImg()" multiple required>
         <label for="file-input">
-            <i class="fas fa-upload"></i> &nbsp; Choose A Photo
+            <i class="fas fa-upload"></i> &nbsp; Chọn ảnh đại diện
         </label>
-        <p id="num-of-files">No Files Chosen</p>
+        <p id="num-of-files">Chưa chọn file nào </p>
         <div id="images"></div>
             <input type="hidden" id="mangaId" name="mangaId" value= {{ manga.id }}>
             <input type="hidden" id="urls" name="urls" value= "">
             <div class="form-group">
                 <div class="col-lg-8">
-                    <input class="hidden" type="text" id="name" name="name" required value="" placeholder="Chapter's name" >
+                    <input class="hidden" type="text" id="name" name="name" required value="" placeholder="Tên chapter" >
                 </div>
                 <hr>
             </div>
@@ -85,6 +58,8 @@
             </div>
         </form>
     </div>
+
+     {% include 'footer.html' %}
 </div>
 </body>
 <script src="{% static 'js/add_chapter.js' %}"></script>
