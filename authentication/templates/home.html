@@ -2,12 +2,18 @@
 
 {% block content %}
 
-<h1> Home page</h1>
-
 {% if user.is_authenticated %}
-	<p>Name: {{user.first_name}} {{ user.last_name}}</p>
+	<h1>Thông tin người dùng</h1>
+	<p>Tên: {{user.first_name}} {{ user.last_name}}</p>
 	<p>Username: {{user.username}}</p>
 	<p>Email: {{user.email}}</p>
     <a href="{% url 'usermanga:home' %}" class="nav-link">Your uploaded manga</a>
+{% else %}
+	<h1>My Manga Project</h1>
+	<p>Chào mừng đến web đọc truyện tranh My Manga</p>
+	<div class="row text-center">
+		<a href="{% url 'authentication:login' %}" class="btn btn-success m-3">Đăng nhập</a>
+		<a href="{% url 'authentication:register' %}" class="btn btn-info m-3">Đăng ký</a>
+	</div>
 {% endif %}
 {% endblock %}
