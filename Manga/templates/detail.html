@@ -30,7 +30,7 @@
                 {% endif %}
                 <p><span class="text-muted">Thể loại: </span>
                     {% for cate in detail_categories %}
-                        <a href="#">{{cate.category}}</a>
+                        <a href="{% url 'Manga:category' cate.id %}">{{cate.category}}</a>
                     {% endfor %}
                 </p>
                 <p><span class="text-muted">Lượt xem: </span> {{manga.views}}</p>
