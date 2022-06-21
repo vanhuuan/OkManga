@@ -23,9 +23,9 @@
     {% include 'header.html' %}
     
     <!-- MAIN CONTAINER -->
-    <section class="main-container" >
+    <section class="container" >
       <div class="location" id="home">
-          <h1 id="home">Gần đây mới cập nhật</h1>
+          <h1 class="my-4">Gần đây mới cập nhật</h1>
           <div class="box">
             {% if recent %}
               {% for manga in recent %}
@@ -38,7 +38,7 @@
             {% endif %}
           </div>
 
-          <h1 class="pt-5" id="home">Nhiều lượt xem nhất</h1>
+          <h1 class="mt-5 mb-4">Nhiều lượt xem nhất</h1>
           <div class="box">
             {% if hot %}
               {% for manga in hot %}

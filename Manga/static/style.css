@@ -7,7 +7,7 @@
   }
   
   html, body {
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
     margin: 0;
     padding: 0;
@@ -42,39 +42,46 @@
     margin-bottom: 0px;  
     z-index: 100;
   }
-  
-  .netflixLogo {
+
+  .myMangaLogo {
     grid-area: nt;
-    padding-left: 30px;
-    padding-top: 10px;  
-    padding-bottom: 10px;
   }
   
-  .netflixLogo img {  
+  .myMangaLogo img {  
     height: 70px; 
     width: 200px;   
     object-fit: cover; 
   }
   
   #logo {
-    color: #E50914;  
     margin: 0; 
     padding: 0; 
   }
   
+  #logo-alt {
+    display: none;
+  }
   
   .main-nav {
     grid-area: mn;
     padding: 0 30px 0 20px;
   }
+
+  .navbar-fixed-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 696;
+  }
   
-  .main-nav a {
+  .navbar a {
     color: var(--light);
     text-decoration: none;
     margin: 5px;  
   }
   
-  .main-nav a:hover {
+  .navbar a:hover {
     color: var(--dark);
   }
   
@@ -92,11 +99,18 @@
   .sub-nav a:hover {
     color: var(--dark);
   }
-  
+
+  .dropdown-menu a:hover {
+    color: var(--link);
+  }
+
+  .dropdown {
+    vertical-align: middle;
+  }
   
   /* MAIN CONTIANER */
-  .main-container {
-    padding: 100px;
+  .container {
+    padding-top: 100px;
   }
   
   .box {
@@ -133,9 +147,6 @@
   }
   /* LINKS */
   a {
-    color: var(--link);
-  }
-  .dropdown-menu a:hover {
     color: var(--link);
   }
   .link {
@@ -200,6 +211,13 @@
   
   @media(max-width: 700px) {
   
+    #logo {
+      display: none;  
+    }
+    #logo-alt {
+      display: inline;
+    }
+
     header {
       display: grid;
       grid-gap: 20px;
@@ -243,7 +261,7 @@
       text-align: center;
     }
   
-    .netflixLogo {
+    .myMangaLogo {
       max-width: 100%;
       margin: auto;
       padding-right: 20px;
@@ -298,7 +316,7 @@
   display: flex;
   justify-content: center;
 }
-.table{
+/* .table{
   width: 50%;
   max-width: 70%;
-}
+} */

@@ -17,12 +17,12 @@
     {% include 'header.html' %}
     
     <!-- MAIN CONTAINER -->
-    <section class="main-container" >
+    <section class="container" >
         <div class="row py-4">
-            <div class="col-sm-5 row">
+            <div class="col-md-5 row">
                 <a class="mx-auto" href="{% url 'Manga:view' chapters.last.id %}"><img class="h-100 thumbnail" src="{{manga.thumbnail}}" alt="{{manga.name}}"/></a>
             </div>
-            <div class="col-sm-5">
+            <div class="col-md-7">
                 <h1>{{manga.name}}</h1>
                 <p><span class="text-muted">Trạng thái: </span> {{manga.status}}</p>
                 {% if manga.author %}
@@ -42,7 +42,7 @@
                 <a class="btn btn-info m-2" href="{% url 'Manga:view' chapters.last.id %}">Đọc từ đầu</a><a class="btn btn-success m-2" href="{% url 'Manga:view' chapters.first.id %}">Đọc chương mới nhất</a>
             </div>
         </div>
-        <div class="row">
+        <div class="w-100">
             <table class="table table-dark table-hover w-100">
                 {% if chapters %}
                   <tr>
