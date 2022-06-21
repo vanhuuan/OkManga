@@ -17,7 +17,7 @@
     {% include 'header.html' %}
     
     <!-- MAIN CONTAINER -->
-    <section class="main-container text-center" >
+    <section class="container text-center" >
       <h1 class="text-center">{{chapter.name}} - <a href="{% url 'Manga:detail' chapter.manga.id %}">{{chapter.manga.name}}</a></h1>
       {% if prevChap %}
       <a class="btn btn-success m-2" href="{% url 'Manga:view' prevChap.id %}">Chương trước</a>
