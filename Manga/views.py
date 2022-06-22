@@ -15,7 +15,7 @@ from Manga.models.history import History
 
 def index(request):
     if not request.user.is_authenticated:
-        return redirect("/")
+        return redirect("auth/")
     all_manga = Manga.objects.all()
     recent = all_manga.order_by("updated_at")[:12]
     hot = all_manga.order_by("views").reverse()[:12]
@@ -26,7 +26,7 @@ def index(request):
 
 def home(request):
     if not request.user.is_authenticated:
-        return redirect("/")
+        return redirect("auth/")
     avatar = get_object_or_404(Avatar, user=request.user)
     avatar_img = avatar.picture
     return render(request, 'home.html', {'avatar_img': avatar_img})
@@ -34,7 +34,7 @@ def home(request):
 
 def all(request):
     if not request.user.is_authenticated:
-        return redirect("/")
+        return redirect("auth/")
     all_manga = Manga.objects.all()
     categories = Category.objects.all().order_by("category")
     context = {'all_manga': all_manga, 'categories': categories}
@@ -43,7 +43,7 @@ def all(request):
 
 def recent(request):
     if not request.user.is_authenticated:
-        return redirect("/")
+        return redirect("auth/")
     all_manga = Manga.objects.all().order_by("updated_at")
     categories = Category.objects.all().order_by("category")
     context = {'all_manga': all_manga, 'categories': categories}
@@ -52,7 +52,7 @@ def recent(request):
 
 def hot(request):
     if not request.user.is_authenticated:
-        return redirect("/")
+        return redirect("auth/")
     all_manga = Manga.objects.all().order_by("views").reverse()
     categories = Category.objects.all().order_by("category")
     context = {'all_manga': all_manga, 'categories': categories}
@@ -61,7 +61,7 @@ def hot(request):
 
 def category(request, category_id):
     if not request.user.is_authenticated:
-        return redirect("/")
+        return redirect("auth/")
     category = Category.objects.get(id=category_id)
     all_manga = Manga.objects.filter(category=category)
     categories = Category.objects.all().order_by("category")
@@ -71,7 +71,7 @@ def category(request, category_id):
 
 def detail(request, manga_id):
     if not request.user.is_authenticated:
-        return redirect("/")
+        return redirect("auth/")
     all_categories = Category.objects.all().order_by("category")
     manga = Manga.objects.get(id=manga_id)
     chapters = Chapter.objects.filter(manga=manga).order_by("index")
@@ -81,7 +81,7 @@ def detail(request, manga_id):
 
 def search(request):
     if not request.user.is_authenticated:
-        return redirect("/")
+        return redirect("auth/")
     search_input = request.POST['mangaSearch']
     all_manga = Manga.objects.filter(name__contains=search_input)
     categories = Category.objects.all().order_by("category")
@@ -91,7 +91,7 @@ def search(request):
 
 def view(request, chapter_id):
     if not request.user.is_authenticated:
-        return redirect("/")
+        return redirect("auth/")
     categories = Category.objects.all().order_by("category")
     chapter = Chapter.objects.get(id=chapter_id)
     chapter_list = Chapter.objects.filter(manga=chapter.manga).order_by("index")
