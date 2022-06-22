@@ -36,6 +36,7 @@ export function uploadThumbnail(imgThumbnail) {
                     break;
                 case 'running':
                     console.log('Upload is running');
+                    document.getElementById('okay').value = "";
                     break;
             }
         },
@@ -62,6 +63,7 @@ export function uploadThumbnail(imgThumbnail) {
                 imgUrl = downloadURL;
                 var urls = document.getElementById("urls");
                 urls.value = urls.value + ";"+ downloadURL
+                document.getElementById('okay').value = "okay";
             });
         }
     );

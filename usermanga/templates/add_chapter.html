@@ -43,6 +43,7 @@
         <div id="images"></div>
             <input type="hidden" id="mangaId" name="mangaId" value= {{ manga.id }}>
             <input type="hidden" id="urls" name="urls" value= "">
+            <input type="hidden" id="okay" name="okay" value= "">
             <div class="form-group">
                 <div class="col-lg-8">
                     <input class="hidden" type="text" id="name" name="name" required value="" placeholder="Tên chapter" >
@@ -51,7 +52,7 @@
             </div>
             <div class="form-group">
                 <div class="col-md-6">
-                    <input type="submit" class="btn btn-primary" value="Thêm chapter" onsubmit="setImg()">
+                    <input type="submit" id="submitBtn" class="btn btn-primary" value="Thêm chapter" onsubmit="setImg()">
                     <span></span>
                     <a href= "{% url "usermanga:edit" manga.id %}" class="btn btn-default">Cancel</a>
                 </div>
@@ -89,6 +90,11 @@
             for(i of fileInput.files){
                 window.readURL(i);
             }
+        }
+        function setImg(){
+            if (document.getElementById("submitBtn").value === "okay")
+                return true;
+            return false
         }
     </script>
 </html>
